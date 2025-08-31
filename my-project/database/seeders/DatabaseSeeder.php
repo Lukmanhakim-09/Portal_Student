@@ -19,5 +19,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        // Seed payment, notification, and KRS data for all users
+        $this->call([
+            PaymentSeeder::class,
+            NotificationSeeder::class,
+            KRSSeeder::class,
+        ]);
     }
 }
