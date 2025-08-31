@@ -1,61 +1,231 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎓 Portal Student - KALLA INSTITUTE
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem Informasi Akademik (SIA) untuk mahasiswa KALLA INSTITUTE dengan fitur dashboard mahasiswa, pembayaran, notifikasi, dan KRS (Kartu Rencana Studi).
 
-## About Laravel
+## 📋 Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 🔐 Authentication (Laravel Breeze)
+- Login/Registrasi mahasiswa
+- Role-based access (Student/Admin)
+- Password reset functionality
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 📊 Dashboard Mahasiswa
+- **Ringkasan Tagihan**: Total tagihan dan status pembayaran
+- **Status Pembayaran**: Real-time payment status
+- **Notifikasi**: Sistem notifikasi dengan mark as read
+- **Tabel KRS**: Kartu Rencana Studi dengan detail dan silabus
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 💳 Sistem Pembayaran
+- Simulasi pembayaran tagihan
+- Status: PENDING → PAID
+- Validasi pembayaran untuk KRS
 
-## Learning Laravel
+### 👤 Profil Mahasiswa
+- Edit profil dasar
+- Update informasi personal
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🛠️ Admin Panel
+- Dashboard admin dengan statistik
+- Monitoring mahasiswa
+- Data pembayaran dan KRS
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🗄️ Skema Database
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Users Table
+```sql
+users(id, name, email, password, role[student/admin], payment_status)
+```
 
-## Laravel Sponsors
+### Payments Table
+```sql
+payments(id, user_id, amount, due_date, status[PENDING/PAID], paid_at)
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Notifications Table
+```sql
+notifications(id, user_id, title, body, read_at)
+```
 
-### Premium Partners
+### KRS Enrollments Table
+```sql
+krs_enrollments(id, user_id, kode_mk, nama_mk, sks, kelas, hari, mulai, selesai)
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🚀 Instalasi & Setup
 
-## Contributing
+### Prerequisites
+- PHP 8.1+
+- Composer
+- MySQL/MariaDB
+- XAMPP/WAMP/LAMP
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Langkah Instalasi
 
-## Code of Conduct
+1. **Clone Repository**
+```bash
+git clone https://github.com/Lukmanhakim-09/Portal_Student.git
+cd Portal_Student/my-project
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. **Install Dependencies**
+```bash
+composer install
+npm install
+```
 
-## Security Vulnerabilities
+3. **Environment Setup**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. **Database Configuration**
+```bash
+# Edit .env file
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=portal_student
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## License
+5. **Database Migration & Seeding**
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. **Build Assets**
+```bash
+npm run dev
+```
+
+7. **Start Server**
+```bash
+php artisan serve
+```
+
+## 👥 Akun Default
+
+### Admin
+- **Email**: `admin@admin.com`
+- **Password**: `password`
+- **Role**: Admin
+
+### Student (Test)
+- **Email**: `test@example.com`
+- **Password**: `password`
+- **Role**: Student
+
+## 🎯 Fitur Wajib (Fungsional)
+
+### ✅ Auth Laravel Breeze
+- Login/registrasi mahasiswa
+- Password reset
+- Role-based authentication
+
+### ✅ Dashboard Mahasiswa
+- Ringkasan tagihan
+- Status pembayaran
+- Notifikasi belum dibaca
+- Tabel KRS dummy
+
+### ✅ Pembayaran
+- Simulasi bayar
+- Ubah status Lunas
+- Validasi untuk KRS
+
+### ✅ Profil
+- Edit profil dasar
+- Update informasi
+
+### ✅ Admin Panel
+- Dashboard admin
+- Monitoring mahasiswa
+- Statistik pembayaran dan KRS
+
+## 🛠️ Teknologi yang Digunakan
+
+- **Backend**: Laravel 11
+- **Frontend**: Blade Templates + Tailwind CSS
+- **Database**: MySQL
+- **Authentication**: Laravel Breeze
+- **Asset Build**: Vite
+
+## 📁 Struktur File Penting
+
+```
+my-project/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── DashboardController.php
+│   │   ├── PaymentController.php
+│   │   ├── KRSController.php
+│   │   ├── AdminController.php
+│   │   └── Auth/
+│   ├── Models/
+│   │   ├── User.php
+│   │   ├── Payment.php
+│   │   ├── Notification.php
+│   │   └── KRSEnrollment.php
+│   ├── Observers/
+│   │   └── UserObserver.php
+│   └── Http/Middleware/
+│       └── AdminMiddleware.php
+├── database/
+│   ├── migrations/
+│   └── seeders/
+├── resources/views/
+│   ├── dashboard.blade.php
+│   ├── admin/
+│   ├── krs/
+│   └── auth/
+└── routes/
+    └── web.php
+```
+
+## 🎨 Screenshot Dashboard
+
+### Student Dashboard
+- Header dengan gradient hijau
+- Ringkasan tagihan dan pembayaran
+- Notifikasi dengan status read/unread
+- Tabel KRS dengan detail dan silabus
+- Admin Panel button (untuk admin)
+
+### Admin Dashboard
+- Clean design dengan background gray
+- Statistik: Total Mahasiswa, Sudah Membayar, Sudah Ajukan KRS
+- Progress bars dan tabel ringkasan
+- Monitoring data mahasiswa
+
+## 🔧 Arsitektur Singkat
+
+### MVC Pattern
+- **Model**: User, Payment, Notification, KRSEnrollment
+- **View**: Blade templates dengan Tailwind CSS
+- **Controller**: DashboardController, PaymentController, KRSController, AdminController
+
+### Authentication Flow
+1. User login → Role check → Redirect to appropriate dashboard
+2. Admin → Admin Panel
+3. Student → Student Dashboard
+
+### Payment Flow
+1. New user registration → Auto-create 3 payment records
+2. Payment simulation → Update status to PAID
+3. KRS enrollment → Check payment threshold (50%)
+
+### Observer Pattern
+- UserObserver → Auto-create payments and notifications for new users
+
+## 📧 Contact
+
+**Repository**: https://github.com/Lukmanhakim-09/Portal_Student.git
+
+**Email**: ict@kallainstitute.ac.id
+
+---
+
+**Developed for KALLA INSTITUTE** 🎓
