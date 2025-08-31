@@ -20,6 +20,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
+        // Seed admin user
+        $this->call([
+            AdminSeeder::class,
+        ]);
+
         // Seed payment, notification, and KRS data for all users
         $this->call([
             PaymentSeeder::class,
